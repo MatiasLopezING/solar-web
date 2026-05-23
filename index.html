@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inferencia Climática Solar — LEICI/UNLP</title>
+    <meta name="description" content="Dashboard de comparativa de modelos de inferencia solar (Kt) en tiempo real. LEICI - UNLP.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Zoom/Pan plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <!-- Custom CSS (ruta relativa para GitHub Pages) -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-images">
+                <img src="./img/logoC-1.png" alt="CONICET">
+                <img src="./img/leiciLogo_sinfondo.png" alt="LEICI">
+                <img src="./img/logo-transparente-300x144.png" alt="UNLP">
+                <img src="./img/ing-1-300x180.png" alt="Ingeniería">
+            </div>
+            <h1>Comparativa de Modelos (Kt)</h1>
+            <p>Precisión de la inferencia vs Datos Reales</p>
+        </header>
+
+        <div id="apiStatus" class="api-status api-status--connecting">
+            ⏳ Conectando con el backend...
+        </div>
+
+        <div class="controls">
+            <div id="modelSelectors" class="model-buttons">
+                <!-- Buttons will be injected via JS -->
+            </div>
+            <div class="controls-right">
+                <button class="btn-reset-zoom" id="btnResetZoom" onclick="resetZoom()" title="Restablecer vista">
+                    &#x26F6; Reset Zoom
+                </button>
+                <button class="btn-refresh" onclick="fetchData()">Actualizar</button>
+            </div>
+        </div>
+
+        <div class="metrics-row" id="metricsRow">
+            <div class="metric-box">
+                <span class="metric-label">MAE Nowcasting (10m)</span>
+                <strong class="metric-value" id="maeNow">-</strong>
+            </div>
+            <div class="metric-box">
+                <span class="metric-label">MAE Forecasting (4h)</span>
+                <strong class="metric-value" id="maeFore">-</strong>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="mainChart"></canvas>
+        </div>
+
+        <footer>
+            <p>Created by Lopez Matias 02670/0</p>
+        </footer>
+    </div>
+
+    <!-- Custom JS (ruta relativa para GitHub Pages) -->
+    <script src="./app.js"></script>
+</body>
+</html>
