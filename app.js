@@ -94,10 +94,22 @@ function updateView() {
     const metricsNow = currentData.metrics[keyNow];
     const metricsFore = currentData.metrics[keyFore];
 
-    maeNowEl.innerText = (metricsNow && metricsNow.mae_total !== null)
-        ? metricsNow.mae_total.toFixed(4) : 'N/A';
-    maeForeEl.innerText = (metricsFore && metricsFore.mae_total !== null)
-        ? metricsFore.mae_total.toFixed(4) : 'N/A';
+    // Backend devuelve mae_global y mae_operacional (no mae_total)
+    if (metricsNow) {
+        const global = metricsNow.mae_global != null ? metricsNow.mae_global.toFixed(4) : 'N/A';
+        const oper   = metricsNow.mae_operacional != null ? metricsNow.mae_operacional.toFixed(4) : 'N/A';
+        maeNowEl.innerText = `${oper} (op) / ${global} (glob)`;
+    } else {
+        maeNowEl.innerText = 'N/A';
+    }
+
+    if (metricsFore) {
+        const global = metricsFore.mae_global != null ? metricsFore.mae_global.toFixed(4) : 'N/A';
+        const oper   = metricsFore.mae_operacional != null ? metricsFore.mae_operacional.toFixed(4) : 'N/A';
+        maeForeEl.innerText = `${oper} (op) / ${global} (glob)`;
+    } else {
+        maeForeEl.innerText = 'N/A';
+    }
 
     renderChart();
 }
