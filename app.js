@@ -85,8 +85,10 @@ function renderModelButtons(models) {
 function updateView() {
     if (!currentData || !activeModel) return;
 
-    const maeNowEl = document.getElementById('maeNow');
-    const maeForeEl = document.getElementById('maeFore');
+    const maeNowEl       = document.getElementById('maeNow');
+    const maeNowGlobEl   = document.getElementById('maeNowGlobal');
+    const maeForeEl      = document.getElementById('maeFore');
+    const maeForeGlobEl  = document.getElementById('maeForeGlobal');
 
     const keyNow = `${activeModel} (now)`;
     const keyFore = `${activeModel} (fore)`;
@@ -96,19 +98,23 @@ function updateView() {
 
     // Backend devuelve mae_global y mae_operacional (no mae_total)
     if (metricsNow) {
-        const global = metricsNow.mae_global != null ? metricsNow.mae_global.toFixed(4) : 'N/A';
-        const oper   = metricsNow.mae_operacional != null ? metricsNow.mae_operacional.toFixed(4) : 'N/A';
-        maeNowEl.innerText = `${oper} (op) / ${global} (glob)`;
+        maeNowEl.innerText     = metricsNow.mae_operacional != null
+            ? metricsNow.mae_operacional.toFixed(4) : 'N/A';
+        maeNowGlobEl.innerText = metricsNow.mae_global != null
+            ? `Global: ${metricsNow.mae_global.toFixed(4)}` : '';
     } else {
         maeNowEl.innerText = 'N/A';
+        maeNowGlobEl.innerText = '';
     }
 
     if (metricsFore) {
-        const global = metricsFore.mae_global != null ? metricsFore.mae_global.toFixed(4) : 'N/A';
-        const oper   = metricsFore.mae_operacional != null ? metricsFore.mae_operacional.toFixed(4) : 'N/A';
-        maeForeEl.innerText = `${oper} (op) / ${global} (glob)`;
+        maeForeEl.innerText     = metricsFore.mae_operacional != null
+            ? metricsFore.mae_operacional.toFixed(4) : 'N/A';
+        maeForeGlobEl.innerText = metricsFore.mae_global != null
+            ? `Global: ${metricsFore.mae_global.toFixed(4)}` : '';
     } else {
         maeForeEl.innerText = 'N/A';
+        maeForeGlobEl.innerText = '';
     }
 
     renderChart();

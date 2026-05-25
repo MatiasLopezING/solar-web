@@ -14,8 +14,8 @@
     <!-- Zoom/Pan plugin -->
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
-    <!-- Custom CSS (ruta relativa para GitHub Pages) -->
-    <link rel="stylesheet" href="./style.css">
+    <!-- Custom CSS con cache-busting -->
+    <link rel="stylesheet" href="./style.css?v=3">
 </head>
 <body>
     <div class="container">
@@ -49,11 +49,17 @@
         <div class="metrics-row" id="metricsRow">
             <div class="metric-box">
                 <span class="metric-label">MAE Nowcasting (10m)</span>
-                <strong class="metric-value" id="maeNow">-</strong>
+                <div class="metric-values">
+                    <strong class="metric-value-primary" id="maeNow">-</strong>
+                    <span class="metric-value-secondary" id="maeNowGlobal"></span>
+                </div>
             </div>
             <div class="metric-box">
                 <span class="metric-label">MAE Forecasting (4h)</span>
-                <strong class="metric-value" id="maeFore">-</strong>
+                <div class="metric-values">
+                    <strong class="metric-value-primary" id="maeFore">-</strong>
+                    <span class="metric-value-secondary" id="maeForeGlobal"></span>
+                </div>
             </div>
         </div>
 
@@ -66,7 +72,7 @@
         </footer>
     </div>
 
-    <!-- Custom JS (ruta relativa para GitHub Pages) -->
-    <script src="./app.js"></script>
+    <!-- Custom JS con cache-busting -->
+    <script src="./app.js?v=3"></script>
 </body>
 </html>

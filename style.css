@@ -153,9 +153,23 @@ header p {
     font-size: 0.9rem;
 }
 
-.metric-value {
-    font-size: 1.25rem;
+.metric-values {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+}
+
+.metric-value-primary {
+    font-size: 1.4rem;
     font-weight: 600;
+    line-height: 1.2;
+}
+
+.metric-value-secondary {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
 }
 
 .chart-wrapper {
