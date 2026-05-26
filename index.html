@@ -26,9 +26,16 @@
                 <img src="./img/logo-transparente-300x144.png" alt="UNLP">
                 <img src="./img/ing-1-300x180.png" alt="Ingeniería">
             </div>
-            <h1>Comparativa de Modelos (Kt)</h1>
-            <p>Precisión de la inferencia vs Datos Reales</p>
+            <h1 id="mainTitle">Comparativa de Modelos (GHI)</h1>
+            <p id="mainSubtitle">Irradiancia Solar Global Horizontal — Predicción vs Datos Reales</p>
         </header>
+
+        <div class="mode-selector-wrapper">
+            <div class="mode-selector-container">
+                <button class="btn-mode active" id="btnModeGHI" onclick="setMode('ghi')">GHI (Irradiancia Solar)</button>
+                <button class="btn-mode" id="btnModeKt" onclick="setMode('kt')">Kt (Índice de Claridad)</button>
+            </div>
+        </div>
 
         <div id="apiStatus" class="api-status api-status--connecting">
             ⏳ Conectando con el backend...
