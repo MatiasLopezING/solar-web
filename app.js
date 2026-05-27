@@ -1,9 +1,9 @@
 // ============================================================
-// CONFIGURACIÓN — Actualizar con la URL del túnel Cloudflare
-// cuando arranques cloudflared en tu PC.
-// Ejemplo: "https://abc123.trycloudflare.com"
+// API_URL vacío = URL relativa.
+// Funciona automáticamente en localhost Y a través de cualquier
+// túnel Cloudflare sin necesidad de actualizar este archivo.
 // ============================================================
-const API_URL = "https://alt-parameter-ward-inclusion.trycloudflare.com";
+const API_URL = "";
 
 // ============================================================
 
@@ -24,11 +24,11 @@ function setStatus(state, msg) {
 
 function setMode(mode) {
     currentMode = mode;
-    
+
     // Actualizar estado activo en los botones de modo
     document.getElementById('btnModeGHI').classList.toggle('active', mode === 'ghi');
     document.getElementById('btnModeKt').classList.toggle('active', mode === 'kt');
-    
+
     // Actualizar títulos dinámicos en la cabecera
     const titleEl = document.getElementById('mainTitle');
     const subtitleEl = document.getElementById('mainSubtitle');
@@ -39,7 +39,7 @@ function setMode(mode) {
         titleEl.innerText = "Comparativa de Modelos (Kt)";
         subtitleEl.innerText = "Índice de Claridad de Cielo Claro — Predicción vs Datos Reales";
     }
-    
+
     updateView();
 }
 
@@ -107,10 +107,10 @@ function renderModelButtons(models) {
 function updateView() {
     if (!currentData || !activeModel) return;
 
-    const maeNowEl       = document.getElementById('maeNow');
-    const maeNowGlobEl   = document.getElementById('maeNowGlobal');
-    const maeForeEl      = document.getElementById('maeFore');
-    const maeForeGlobEl  = document.getElementById('maeForeGlobal');
+    const maeNowEl = document.getElementById('maeNow');
+    const maeNowGlobEl = document.getElementById('maeNowGlobal');
+    const maeForeEl = document.getElementById('maeFore');
+    const maeForeGlobEl = document.getElementById('maeForeGlobal');
 
     const keyNow = `${activeModel} (now)`;
     const keyFore = `${activeModel} (fore)`;
@@ -148,7 +148,7 @@ function updateView() {
     } else {
         // Modo Kt: mostrar métricas originales de Kt
         if (metricsNow) {
-            maeNowEl.innerText     = metricsNow.mae_operacional != null
+            maeNowEl.innerText = metricsNow.mae_operacional != null
                 ? metricsNow.mae_operacional.toFixed(4) : 'N/A';
             maeNowGlobEl.innerText = metricsNow.mae_global != null
                 ? `Global: ${metricsNow.mae_global.toFixed(4)}` : '';
@@ -158,7 +158,7 @@ function updateView() {
         }
 
         if (metricsFore) {
-            maeForeEl.innerText     = metricsFore.mae_operacional != null
+            maeForeEl.innerText = metricsFore.mae_operacional != null
                 ? metricsFore.mae_operacional.toFixed(4) : 'N/A';
             maeForeGlobEl.innerText = metricsFore.mae_global != null
                 ? `Global: ${metricsFore.mae_global.toFixed(4)}` : '';
@@ -195,7 +195,13 @@ function renderChart() {
             data: realGhi,
             borderColor: '#10b981',
             borderWidth: 2,
-            pointRadius: 0,
+            pointRadius: (ctx) => {
+                const d = ctx.dataset.data;
+                const i = ctx.dataIndex;
+                const prev = i > 0 ? d[i - 1] : null;
+                const next = i < d.length - 1 ? d[i + 1] : null;
+                return (prev === null || next === null) ? 3 : 0;
+            },
             pointHitRadius: 10,
             tension: 0.2
         });
@@ -250,7 +256,13 @@ function renderChart() {
             data: currentData.real_kt,
             borderColor: '#10b981',
             borderWidth: 2,
-            pointRadius: 0,
+            pointRadius: (ctx) => {
+                const d = ctx.dataset.data;
+                const i = ctx.dataIndex;
+                const prev = i > 0 ? d[i - 1] : null;
+                const next = i < d.length - 1 ? d[i + 1] : null;
+                return (prev === null || next === null) ? 3 : 0;
+            },
             pointHitRadius: 10,
             tension: 0.2
         });
@@ -307,7 +319,7 @@ function renderChart() {
                     borderColor: '#e2e8f0',
                     borderWidth: 1,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             let label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
