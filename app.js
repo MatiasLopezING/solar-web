@@ -1,10 +1,14 @@
 // ============================================================
-// API_URL vacío = URL relativa.
-// Funciona automáticamente en localhost Y a través de cualquier
-// túnel Cloudflare sin necesidad de actualizar este archivo.
+// CONFIGURACIÓN DE API
 // ============================================================
-const API_URL = "";
+let API_URL = ""; 
 
+// Si el frontend se está ejecutando desde GitHub Pages, 
+// apuntamos al túnel de Cloudflare que conecta a tu PC.
+// ¡Acordate de actualizar esta URL cada vez que reinicies cloudflared!
+if (window.location.hostname.includes("github.io")) {
+    API_URL = "https://outline-that-infectious-pac.trycloudflare.com"; // <--- ACTUALIZAR ACÁ
+}
 // ============================================================
 
 let mainChart = null;
